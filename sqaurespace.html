@@ -1,0 +1,141 @@
+
+https://mcf38.github.io/mappingV2/?show=ecole
+https://mcf38.github.io/mappingV2/?show=moniteur
+
+
+
+<div class="responsive-map-container">
+    <iframe
+            src="https://mcf38.github.io/mappingV2/"
+            style="border: 0;"
+            allowfullscreen
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            onmouseenter="checkAndDisableScroll()"
+            onmouseleave="enablePageScroll()">
+    </iframe>
+</div>
+
+<style>
+    /* Styles pour rendre la carte responsive */
+    .responsive-map-container {
+        position: relative;
+        padding-bottom: 85%; /* Ratio d'aspect pour les écrans de bureau */
+        height: 0;
+        overflow: hidden;
+        max-width: 100%;
+    }
+    .responsive-map-container iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    /* Ajustement pour les écrans de 768px ou moins */
+    @media screen and (max-width: 768px) {
+        .responsive-map-container {
+            padding-bottom: 185%; /* Augmente la hauteur pour les mobiles */
+        }
+    }
+
+    /* Classe pour désactiver le scroll du body */
+    .no-scroll {
+        overflow: hidden;
+    }
+</style>
+
+<script>
+    let scrollPosition = 0;
+
+    function checkAndDisableScroll() {
+        // Vérifie si l'écran est plus large que 768px
+        if (window.innerWidth > 768) {
+            disablePageScroll();
+        }
+    }
+
+    function disablePageScroll() {
+        // Stocke la position actuelle de la page
+        scrollPosition = window.scrollY;
+
+        // Applique un style inline pour fixer la position du body sans le faire remonter
+        document.body.style.position = 'fixed';
+        document.body.style.top = `-${scrollPosition}px`;
+        document.body.classList.add('no-scroll');
+    }
+
+    function enablePageScroll() {
+        // Retire le style pour réactiver le scroll
+        document.body.classList.remove('no-scroll');
+        document.body.style.position = '';
+        document.body.style.top = '';
+
+        // Replace la page à la position où elle était
+        window.scrollTo(0, scrollPosition);
+    }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+    // Fonction pour récupérer la valeur d'un paramètre d'URL
+    function getUrlParameter(name) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(name);
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        // Récupère les valeurs des paramètres "id" et "contact" dans l'URL
+        const idValue = getUrlParameter('id');
+        const contactValue = getUrlParameter('contact');
+
+        // Cible le bouton "Envoyer" et ajoute un écouteur d'événement pour remplir le champ avant l'envoi
+        const submitButton = document.querySelector(".form-submit-button-label");
+        if (submitButton && idValue && contactValue) {
+            submitButton.addEventListener("click", function(event) {
+                // Format du texte à insérer
+                const formattedText = `${contactValue} (id:${idValue})`;
+
+                // Recherche le label qui contient le texte "Nom du Moniteur"
+                const labelElements = document.querySelectorAll('label');
+
+                labelElements.forEach(label => {
+                    if (label.textContent.includes("Nom du Moniteur")) {
+                        // Trouve le champ associé en utilisant l'attribut "for" du label
+                        const inputId = label.getAttribute('for');
+                        const nomDuMoniteurField = document.getElementById(inputId);
+
+                        // Remplit le champ avec le texte formaté
+                        if (nomDuMoniteurField) {
+                            nomDuMoniteurField.value = formattedText;
+                        }
+                    }
+                });
+            });
+        }
+    });
+</script>

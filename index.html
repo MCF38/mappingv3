@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cartographie MCF V2</title>
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.7.2/css/all.css" />
+    <link rel="stylesheet" href="mapbox_v2.css">
+</head>
+<body>
+
+<!-- Carte plein écran -->
+<div id="map"></div>
+
+<!-- Overlay filtres (top-left) -->
+<div id="filters-overlay">
+    <button id="filters-toggle" class="filters-toggle-btn">
+        <i class="fa-solid fa-sliders"></i> Filtres
+        <span id="active-filters-badge" class="badge" style="display:none;">0</span>
+    </button>
+    <div id="filters-panel" class="filters-panel" style="display:none;">
+        <div class="filters-panel__header">
+            <span>Filtres</span>
+            <button id="filters-close" class="filters-close-btn"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+
+        <!-- Recherche texte -->
+        <div class="filters-search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="filter-search" placeholder="Rechercher par nom, ville..." />
+        </div>
+
+        <div id="filters-container"></div>
+
+        <div class="filters-panel__footer">
+            <button id="filters-reset" class="filters-reset-btn">Réinitialiser</button>
+            <div id="result-count" class="result-count"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Légende carte (cliquable = toggle) -->
+<div id="map-legend" class="map-legend">
+    <div class="legend-item" id="legend-ecole">
+        <span class="legend-dot legend-dot--gold"></span>
+        <span>École MCF</span>
+    </div>
+    <div class="legend-item" id="legend-moniteur">
+        <span class="legend-dot legend-dot--blue"></span>
+        <span>Moniteur indépendant</span>
+    </div>
+</div>
+
+<!-- Fiche synthétique (popup carte) -->
+<div id="location-card" class="location-card" style="display:none;">
+    <button id="card-close" class="card-close-btn"><i class="fa-solid fa-xmark"></i></button>
+    <div id="card-content"></div>
+</div>
+
+<script src="mapbox_v2.js"></script>
+
+</body>
+</html>
